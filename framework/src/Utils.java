@@ -1,6 +1,7 @@
 package etu1831.framework;
 
-import java.io.IOException;
+import java.io.*;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.File;
@@ -16,9 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import etu1831.framework.FileUpload;
 import etu1831.framework.Mapping;
 import etu1831.framework.ModelView;
 import etu1831.framework.Url;
+
+
 
 public class Utils {
 
@@ -116,5 +120,40 @@ public class Utils {
         }
         return methodesAnnotees;
     }
+    public static String majuscule(String s){
+        return s.substring(0,1).toUpperCase()+s.substring(1, s.length());
+    }
+
+    public static void uploadFile(FileUpload file, String pathName, String value, HttpServletRequest request) throws Exception {
+    // Get the filename from the file part
+    String fileName = file.getFileName();
     
+    // Specify the directory to save the uploaded file
+    String savePath = pathName + "ETU1767-Framework-" + fileName;
+    
+    // Save the file to the specified location
+    OutputStream out = null;
+    InputStream fileContent = null;
+    try {
+        Part filePart=request.getPart(value);
+        out = new FileOutputStream(new File(savePath));
+        fileContent = filePart.getInputStream();
+        int read;
+        byte[] buffer = new byte[1024];
+        while ((read = fileContent.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
+        }
+        out.flush();
+        out.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+        if (fileContent != null) {
+            fileContent.close();
+        }
+    }
+    }
 }
