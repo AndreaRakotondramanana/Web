@@ -1,5 +1,4 @@
 package modele;
-import etu1831.framework.Url;
 import java.sql.Date;
 
 public class Employe {
@@ -12,10 +11,6 @@ public class Employe {
         this.nom = nom;
         this.prenom = prenom;
         this.date_de_naissance = date_de_naissance;
-    }
-    @Url(method = "emp-methode")
-    public String methodeAAnnoter(){
-        return "emp-methode";
     }
     
     public int getId() {
