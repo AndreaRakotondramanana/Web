@@ -8,13 +8,20 @@
 </head>
 <body>
     <a href="huhu">Where am i directed?</a>
+    <br>
     <form action="haha" method="post">
         <input type="submit" value="Where am i directed?">
     </form>
+    <br>
     <form action="hihi" method="get">
         <input type="submit" value="Where am i directed?">
     </form>
+    <br>
     <a href="emp-jsp">emp-jsp</a>
+    <br>
     <a href="dept-jsp">dept-jsp</a>
+    <br>
+    <a href="get-emp">Liste des employes</a>
+    <br>
 </body>
 </html>

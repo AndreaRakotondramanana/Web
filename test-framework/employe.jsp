@@ -8,5 +8,11 @@
 </head>
 <body>
     <h1>EMPLOYE</h1>
+    <form action="add-emp">
+        <input type="number" name="id" id="id">
+        <input type="text" name="nom" id="nom">
+        <input type="text" name="prenom" id="prenom">
+        <input type="date" name="date_de_naissance" id="date_de_naissance">
+    </form>
 </body>
 </html>
