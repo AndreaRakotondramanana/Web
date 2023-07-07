@@ -8,7 +8,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,24 @@ import etu1831.framework.ModelView;
 import etu1831.framework.Url;
 
 public class Utils {
+
+    public static Object cast(String toCast, Class typeOfCast) throws Exception {
+        if (typeOfCast == int.class || typeOfCast == Integer.class) {
+            return Integer.parseInt(toCast);
+        } else if (typeOfCast == double.class || typeOfCast == Double.class) {
+            return Double.parseDouble(toCast);
+        } else if (typeOfCast == Date.class) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date utilDate = format.parse(toCast);
+            return new java.sql.Date(utilDate.getTime());
+        } else if (typeOfCast == Boolean.class) {
+            return Boolean.parseBoolean(toCast);
+        }
+    
+        return toCast;
+    }
+    
+    
     //Obtenir toutes les classes dans chaque dossier
     private static List<Class<?>> getClassesDansDossiers(File dossier, String nomDePackage)throws Exception{
         //System.out.println(dossier.getAbsolutePath() + " PATH");
@@ -84,11 +104,8 @@ public class Utils {
                 Method[] listesMethodes = class1.getDeclaredMethods();
                 for (Method methode : listesMethodes) {
                     Annotation annotation = methode.getAnnotation(annotationDeClasse);
-                    if(annotation != null){/* 
-                        System.out.println("methode " + ((Url) annotation).method());
-                        System.out.println("nomdeclasse " + class1.getName());
-                        System.out.println("nomdemethode " + methode.getName()); */
-                        methodesAnnotees.put(((Url) annotation).method(), new Mapping( class1.getName(), methode.getName()));
+                    if(annotation != null){
+                        methodesAnnotees.put(((Url) annotation).method(), new Mapping( class1.getName(), methode.getName(), methode.getParameterTypes()));
                     }
                 }
             }
@@ -100,30 +117,4 @@ public class Utils {
         return methodesAnnotees;
     }
     
-    public static ModelView modelDeRedirection (HttpServletRequest request, HashMap<String, Mapping> mappingUrls)throws Exception, ServletException, IOException{
-        System.out.println(request.getServletPath() + " SERVLET PATH");
-        String servletPath = request.getServletPath();
-        String[] path = servletPath.split("/");
-        ModelView modelView = new ModelView();
-            for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
-                String clef = entry.getKey();// clef
-                Mapping map = entry.getValue(); // valeur
-                System.out.println(clef + " - " + map.getMethod().toString());
-                if(path[1].equals(clef) == true){
-                    String nomDeClasseDeMethode = mappingUrls.get(path[1]).getClassName();
-                    //Prendre la classe mère
-                    String laClasse = nomDeClasseDeMethode;
-                    System.out.println(laClasse + " LA CLASSEEEEEEEEEEEEEEEE");
-                    //Prendre la méthode en string
-                    String laMethode = map.getMethod();
-                    System.out.println(laMethode + " LA METHODEEEEEEEEEEEEEEE");
-                    //Invocation de la méthode
-                    Class<?> appel = Class.forName(laClasse);
-                    Object objectC = appel.getDeclaredConstructor().newInstance();
-                    modelView = (ModelView)appel.getDeclaredMethod(laMethode).invoke(objectC);
-                    return modelView;
-                }
-            }
-        return modelView;
-    }
 }

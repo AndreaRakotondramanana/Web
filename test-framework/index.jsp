@@ -17,12 +17,12 @@
         <input type="submit" value="Where am i directed?">
     </form>
     <br>
-    <a href="emp-jsp">emp-jsp</a>
-    <br>
-    <a href="dept-jsp">dept-jsp</a>
-    <br>
     <a href="get-emp">Liste des employes</a>
     <br>
-    <a href="emp-jsp"
+    <a href="emp-jsp">ADD-EMP</a>
+    <br>
+    <a href="dept-jsp">ADD-DEPT </a>
+    <br>
+    <a href="add-dept?nomDeDepartement=huhu&nombreEmploye=12">ADD-EMP by link</a>
 </body>
 </html>

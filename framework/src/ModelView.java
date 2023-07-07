@@ -14,7 +14,7 @@ public class ModelView {
     }
 
     public ModelView(String vueRedirection) {
-        this.vueRedirection = vueRedirection;
+        this.setVueRedirection(vueRedirection);
     }
 
     public String getVueRedirection() {
