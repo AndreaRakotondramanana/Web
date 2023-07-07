@@ -14,5 +14,6 @@
     <form action="hihi" method="get">
         <input type="submit" value="Where am i directed?">
     </form>
+    <a href="emp-methode">emp-methode</a>
 </body>
 </html>
