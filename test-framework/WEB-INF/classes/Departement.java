@@ -8,6 +8,11 @@ public class Departement{
         ModelView modelView = new ModelView("departement.jsp");
         return modelView;
     }
+    @Url(method = "add-dept")
+    public ModelView addEmploye(){
+        ModelView modelView = new ModelView("sprint70.jsp");
+        return modelView;
+    }
     public String getNomDeDepartement() {
         return nomDeDepartement;
     }

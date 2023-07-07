@@ -32,11 +32,31 @@ public class FrontServlet extends HttpServlet {
             //entrySet -> ampiasaina ao am boucle angalana an le clef sy valeur     
             out.println("You are being redirected to FRONTSERVLET");
 
+
+
+
             ModelView modelView = (ModelView)Utils.modelDeRedirection(request, mappingUrls);
             RequestDispatcher dispat = request.getRequestDispatcher(modelView.getVueRedirection());
 
-            HashMap<String, Object> data = modelView.getData();                                    // Get all data of the mv
+            System.out.println(modelView.getVueRedirection() + " VUE DE REDIRECTION");
+            HashMap<String, Object> data = modelView.getData();                                    
 
+            Map<String, String[]> donneesJSP;
+            if (request.getParameterMap()!=null && !request.getParameterMap().isEmpty()) {
+                donneesJSP = request.getParameterMap();
+
+                out.println(donneesJSP.toString() + " donneesJSP");
+                for (String parameterName : donneesJSP.keySet()) {
+                    String[] values = donneesJSP.get(parameterName);
+                    out.println(parameterName + " : " + String.join(", ", values));
+                    request.setAttribute(parameterName,donneesJSP.get(parameterName)[0]);
+                    //get.("NOM ATTRIBUT")[0] du parametre pour recuperer les donnees
+                } 
+            }
+
+
+
+            //Ajout des valeurs venant de modele dans HashMap data dans ModelView
             if(data != null){
                 for (Map.Entry<String, Object> entry : data.entrySet()) {
                     String key = entry.getKey();
@@ -45,8 +65,8 @@ public class FrontServlet extends HttpServlet {
                     request.setAttribute(key, value);
                 }
             }
-
             dispat.forward(request, response); 
+
             /*  for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
                 String clef = entry.getKey();// clef
                 Mapping map = entry.getValue(); // valeur

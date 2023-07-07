@@ -43,6 +43,11 @@ public class Employe {
         modelView.addItem("allEmploye", employes); 
         return modelView;
     }
+    @Url(method = "add-emp")
+    public ModelView addEmploye(){
+        ModelView modelView = new ModelView("sprint71.jsp");
+        return modelView;
+    }
     public int getId() {
         return id;
     }

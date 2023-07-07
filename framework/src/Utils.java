@@ -100,7 +100,6 @@ public class Utils {
         return methodesAnnotees;
     }
     
-    
     public static ModelView modelDeRedirection (HttpServletRequest request, HashMap<String, Mapping> mappingUrls)throws Exception, ServletException, IOException{
         System.out.println(request.getServletPath() + " SERVLET PATH");
         String servletPath = request.getServletPath();
@@ -114,11 +113,10 @@ public class Utils {
                     String nomDeClasseDeMethode = mappingUrls.get(path[1]).getClassName();
                     //Prendre la classe mère
                     String laClasse = nomDeClasseDeMethode;
-                    System.out.println(laClasse + " LA CLASEEEEEEEEEEEEEEEE");
+                    System.out.println(laClasse + " LA CLASSEEEEEEEEEEEEEEEE");
                     //Prendre la méthode en string
                     String laMethode = map.getMethod();
                     System.out.println(laMethode + " LA METHODEEEEEEEEEEEEEEE");
-        
                     //Invocation de la méthode
                     Class<?> appel = Class.forName(laClasse);
                     Object objectC = appel.getDeclaredConstructor().newInstance();
@@ -128,5 +126,4 @@ public class Utils {
             }
         return modelView;
     }
-
 }

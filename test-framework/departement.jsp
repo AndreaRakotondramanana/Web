@@ -8,5 +8,12 @@
 </head>
 <body>
     <h1>DEPARTEMENT</h1>
+    <form action="add-dept">
+        <input type="text" name="nomDeDepartement" id="nomDeDepartement">
+        <br>
+        <input type="number" name="nombreEmploye" id="nombreEmploye">
+        <br>
+        <input type="submit" value="Soumettre">
+    </form>
 </body>
 </html>
