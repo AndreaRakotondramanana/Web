@@ -27,10 +27,6 @@
         <h1 class="mt-4">DEPARTEMENT WITH ARGUMENTS</h1>
         <form action="add-with-arguments.gg">
             <div class="mb-3">
-                <label for="nomDeDepartement" class="form-label">Nom du département</label>
-                <input type="text" name="nomDeDepartement" id="nomDeDepartement" class="form-control">
-            </div>
-            <div class="mb-3">
                 <label for="nombreEmploye" class="form-label">Nombre d'employés</label>
                 <input type="number" name="nombreEmploye" id="nombreEmploye" class="form-control">
             </div>

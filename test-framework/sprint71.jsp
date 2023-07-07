@@ -33,6 +33,10 @@
             <label for="date_de_naissance" class="form-label">Date de naissance</label>
             <p class="form-control" id="date_de_naissance"><%= date_de_naissance %></p>
         </div>
+        <div class="mb-3">
+            <label for="date_de_naissance" class="form-label">Picture</label>
+            <p class="form-control" id="date_de_naissance"><%= (String)request.getAttribute("fileEmploye") %></p>
+        </div>
     </div>
 </body>
 </html>

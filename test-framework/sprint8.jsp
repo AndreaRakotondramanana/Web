@@ -19,6 +19,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Prenom</th>
                     <th scope="col">Date de naissance</th>
+                    <th scope="col">Picture</th>
                 </tr>
             </thead>
             <tbody>

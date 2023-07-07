@@ -9,7 +9,7 @@
 </head>
 <body><div class="container">
     <h1 class="mt-4">EMPLOYE</h1>
-    <form action="add-emp.gg">
+    <form action="add-emp.gg"  method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="id" class="form-label">ID</label>
             <input type="number" name="id" id="id" class="form-control">
@@ -26,13 +26,16 @@
             <label for="date_de_naissance" class="form-label">Date de naissance</label>
             <input type="date" name="date_de_naissance" id="date_de_naissance" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary">Soumettre</button>
+        <div class="mb-3">
+            <input type="file" name="fileEmploye" id="fileEmploye"  class="form-control" />
+        </div> 
+        <input type="submit" class="btn btn-primary">
     </form>
 </div>
 
 <div class="container mt-5">
     <h1 class="mt-4">EMPLOYE AVEC ARGUMENTS DANS METHODE</h1>
-    <form action="add-emp-with-arguments.gg">
+    <form action="add-emp-with-arguments.gg" method="post" enctype="multipart/form-data"> 
         <div class="mb-3">
             <label for="id" class="form-label">ID</label>
             <input type="number" name="id" id="id" class="form-control">
@@ -48,8 +51,11 @@
         <div class="mb-3">
             <label for="date_de_naissance" class="form-label">Date de naissance</label>
             <input type="date" name="date_de_naissance" id="date_de_naissance" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Soumettre en tant qu'arguments</button>
+        </div> 
+        <div class="mb-3">
+            <input type="file" name="fileEmploye" id="fileEmploye"  class="form-control" />
+        </div> 
+        <input type="submit" class="btn btn-primary" value="Soumettre en tant qu'arguments">
     </form>
 </div>
 </body>

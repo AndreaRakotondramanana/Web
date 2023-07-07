@@ -26,8 +26,7 @@
         <a href="dept-jsp.gg" class="btn btn-primary">ADD-DEPT </a>
     </p>
     <p>
-        <a href="add-dept.gg?nomDeDepartement=Ressources humaines&nombreEmploye=12" class="btn btn-primary">ADD-EMP by
-            link</a>
+        <a href="add-dept.gg?nomDeDepartement=Ressources humaines&nombreEmploye=12" class="btn btn-primary">ADD-EMP by link</a>
     </p>
 </body>
 
