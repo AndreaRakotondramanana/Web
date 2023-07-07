@@ -1,9 +1,10 @@
 cd framework/src
 javac -parameters -d . *.java
 jar -cvf ../../etu1831.jar etu1831
-copy ../../etu1831.jar ../../test-framework/WEB-INF/lib/
+cd ../../
+copy etu1831.jar test-framework/WEB-INF/lib/
 
-set CLASSPATH=.;D:/Sprint/WebDynamique/Sprint5-2/framework/etu1831.jar
+set CLASSPATH=.;D:/Sprint/WebDynamique/Sprint6-2/framework/etu1831.jar
 
 cd ../../test-framework/WEB-INF/classes
 javac -parameters -d . *.java

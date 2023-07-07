@@ -1,5 +1,4 @@
 package etu1831.framework;
-
 public class Mapping {
     String className;
     String method;
