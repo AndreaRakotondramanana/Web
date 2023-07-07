@@ -1,4 +1,6 @@
 package modele;
+import etu1831.framework.ModelView;
+import etu1831.framework.Url;
 import java.sql.Date;
 
 public class Employe {
@@ -6,11 +8,18 @@ public class Employe {
     String nom;
     String prenom;
     Date date_de_naissance;
+    public Employe() {
+    }
     public Employe(int id, String nom, String prenom, Date date_de_naissance) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.date_de_naissance = date_de_naissance;
+    }
+    @Url(method = "emp-jsp")
+    public ModelView methodeAAnnoter(){
+        ModelView modelView = new ModelView("employe.jsp");
+        return modelView;
     }
     
     public int getId() {

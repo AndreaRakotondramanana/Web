@@ -1,5 +1,8 @@
 package etu1831.framework;
 
+import java.io.IOException;
+import javax.servlet.*;
+import javax.servlet.http.*;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -8,7 +11,10 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import etu1831.framework.Mapping;
+import etu1831.framework.ModelView;
 import etu1831.framework.Url;
 
 public class Utils {
@@ -103,5 +109,32 @@ public class Utils {
             return methodesAnnotees;
         } */
         return methodesAnnotees;
+    }
+    public static ModelView modelDeRedirection (HttpServletRequest request, HashMap<String, Mapping> mappingUrls)throws Exception, ServletException, IOException{
+        System.out.println(request.getServletPath() + " SERVLET PATH");
+        String servletPath = request.getServletPath();
+        String[] path = servletPath.split("/");
+        ModelView modelView = new ModelView();
+            for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
+                String clef = entry.getKey();// clef
+                Mapping map = entry.getValue(); // valeur
+                System.out.println(clef + " - " + map.getMethod().toString());
+                if(path[1].equals(clef) == true){
+                    String nomDeClasseDeMethode = mappingUrls.get(path[1]).getClassName();
+                    //Prendre la classe mère
+                    String laClasse = nomDeClasseDeMethode;
+                    System.out.println(laClasse + " LA CLASEEEEEEEEEEEEEEEE");
+                    //Prendre la méthode en string
+                    String laMethode = map.getMethod();
+                    System.out.println(laMethode + " LA METHODEEEEEEEEEEEEEEE");
+        
+                    //Invocation de la méthode
+                    Class<?> appel = Class.forName(laClasse);
+                    Object objectC = appel.getDeclaredConstructor().newInstance();
+                    modelView = (ModelView)appel.getDeclaredMethod(laMethode).invoke(objectC);
+                    return modelView;
+                }
+            }
+        return modelView;
     }
 }
