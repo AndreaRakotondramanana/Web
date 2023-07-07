@@ -1,6 +1,10 @@
 package etu1831.framework;
 
-import java.io.IOException;
+import java.io.*;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.File;
@@ -16,9 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import etu1831.framework.FileUpload;
 import etu1831.framework.Mapping;
 import etu1831.framework.ModelView;
 import etu1831.framework.Url;
+
+
 
 public class Utils {
 
@@ -71,7 +78,7 @@ public class Utils {
     }
     
     //Avoir toutes les classes dans un package spécifié
-    private static List<Class<?>> getLesClasses(String packageScannes) throws Exception{
+    public static List<Class<?>> getLesClasses(String packageScannes) throws Exception{
         //System.out.println(" packageScannes : " + packageScannes);
         List<Class<?>> classes = new ArrayList<>();
         try {
@@ -116,5 +123,37 @@ public class Utils {
         }
         return methodesAnnotees;
     }
+
+    public static void uploadFile(FileUpload file, String pathName, String value, HttpServletRequest request) throws Exception {
+    // Get the filename from the file part
+    String fileName = file.getFileName();
     
+    // Specify the directory to save the uploaded file
+    String savePath = pathName + "ETU1767-Framework-" + fileName;
+    
+    // Save the file to the specified location
+    OutputStream out = null;
+    InputStream fileContent = null;
+    try {
+        Part filePart=request.getPart(value);
+        out = new FileOutputStream(new File(savePath));
+        fileContent = filePart.getInputStream();
+        int read;
+        byte[] buffer = new byte[1024];
+        while ((read = fileContent.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
+        }
+        out.flush();
+        out.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+        if (fileContent != null) {
+            fileContent.close();
+        }
+    }
+    }
 }

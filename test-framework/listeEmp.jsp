@@ -24,7 +24,7 @@
             <tbody>
                 <% for(int i = 0; i < emp.size(); i++){ %>
                 <tr>
-                    <td><%= emp.get(i).getId() %></td>
+                    <td><%= emp.get(i).getId().intValue() %></td>
                     <td><%= emp.get(i).getNom() %></td>
                     <td><%= emp.get(i).getPrenom() %></td>
                     <td><%= emp.get(i).getDate_de_naissance() %></td>

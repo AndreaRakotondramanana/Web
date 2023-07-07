@@ -1,22 +1,33 @@
 package modele;
 import etu1831.framework.ModelView;
 import etu1831.framework.*;
+
+import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+@PathUpload(filePath = "C:/Program Files/Apache Software Foundation/Tomcat 8.5_Tomcat8Oni/webapps/ETU1767-Framework/Images/")
 public class Employe {
-    int id;
+    Integer id;
     String nom;
     String prenom;
     Date date_de_naissance;
+    FileUpload fileEmploye;
+    public Employe(Integer id, String nom, String prenom, Date date_de_naissance, FileUpload fileEmploye) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.date_de_naissance = date_de_naissance;
+        this.fileEmploye = fileEmploye;
+    }
     public Employe(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
     }
     public Employe() {
     }
-    public Employe(int id, String nom, String prenom, Date date_de_naissance) {
+    public Employe(Integer id, String nom, String prenom, Date date_de_naissance) {
         this.setId(id);
         this.setNom(nom);
         this.setPrenom(prenom);;
@@ -52,14 +63,14 @@ public class Employe {
         return modelView;
     }
     
-    @Url(method = "add-emp-with-arguments.gg")
+    /* @Url(method = "add-emp-with-arguments.gg")
     @Arguments(arguments = {"id", "nom", "prenom", "date_de_naissance"})
-    public ModelView addEmployeWithArguments(int id, String nom, String prenom, Date date_de_naissance){
+    public ModelView addEmployeWithArguments(Integer id, String nom, String prenom, Date date_de_naissance){
         ModelView modelView = new ModelView("sprint8.jsp");
         List<Employe> employes = listeEmployers();
         Employe employe = new Employe(id, nom, prenom, date_de_naissance);
         System.out.println(date_de_naissance + " date_de_naissancedate_de_naissancedate_de_naissancedate_de_naissance");
-        for (int i = 0; i < employes.size(); i++) {
+        for (Integer i = 0; i < employes.size(); i++) {
             System.out.println(employes.get(i).getDate_de_naissance() + " employes.get(i).getDate_de_naissance()");
             if(employe.getNom().equalsIgnoreCase(employes.get(i).getNom()) == true 
             && employe.getPrenom().equalsIgnoreCase(employes.get(i).getPrenom()) == true 
@@ -70,11 +81,20 @@ public class Employe {
         }
         //3897-08-01
         return modelView;
+    } */
+
+    @Url(method = "add-emp-with-arguments.gg")
+    @Arguments(arguments = {"id", "nom", "prenom", "date_de_naissance" , "fileEmploye"})
+    public ModelView addEmployeWithArguments(Integer id, String nom, String prenom, Date date_de_naissance , FileUpload fileEmploye){
+        ModelView modelView = new ModelView("sprint8.jsp");
+        Employe employe = new Employe(id, nom, prenom, date_de_naissance , fileEmploye);
+        modelView.addItem("employer", employe); 
+        return modelView;
     }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getNom() {
@@ -94,5 +114,11 @@ public class Employe {
     }
     public void setDate_de_naissance(Date date_de_naissance) {
         this.date_de_naissance = date_de_naissance;
+    }
+    public FileUpload getFileEmploye() {
+        return fileEmploye;
+    }
+    public void setFileEmploye(FileUpload fileEmploye) {
+        this.fileEmploye = fileEmploye;
     }
 }
