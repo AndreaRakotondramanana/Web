@@ -25,8 +25,6 @@ import etu1831.framework.ModelView;
 import etu1831.framework.Url;
 import etu1831.framework.Arguments;
 import etu1831.framework.Utils;
-import modele.Employe;
-
 public class FrontServlet extends HttpServlet {
     HashMap<String, Mapping> mappingUrls;
     String nomDePackage;
