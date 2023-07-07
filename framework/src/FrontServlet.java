@@ -1,13 +1,13 @@
 package etu1831.framework.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.net.http.HttpRequest;
 import java.nio.file.Path;
+import javax.servlet.annotation.MultipartConfig;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -21,15 +21,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import etu1831.framework.Mapping;
+import etu1831.framework.FileUpload;
 import etu1831.framework.ModelView;
+import etu1831.framework.PathUpload;
 import etu1831.framework.Url;
 import etu1831.framework.Arguments;
 import etu1831.framework.Utils;
 
+@MultipartConfig
 public class FrontServlet extends HttpServlet {
     HashMap<String, Mapping> mappingUrls;
     String nomDePackage;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -38,6 +40,7 @@ public class FrontServlet extends HttpServlet {
             // entrySet -> ampiasaina ao am boucle angalana an le clef sy valeur
             out.println("You are being redirected to FRONTSERVLET");
 
+            
             Mapping map = this.getMapping(request);
             Object obj = Class.forName(map.getClassName()).newInstance();
             sendData(request, obj);
@@ -80,14 +83,51 @@ public class FrontServlet extends HttpServlet {
     public void sendData(HttpServletRequest request, Object obj) throws Exception {
         Field[] fields = obj.getClass().getDeclaredFields();
         for (Field field : fields) {
-            String value = request.getParameter(field.getName());
+            field.setAccessible(true);
+            String value = field.getName();
+            if(multiPartFormDataContentType(request)){
             if (value != null) {
-                field.setAccessible(true);
-                Class castValue = (Class<?>) field.getType();
-                field.set(obj, Utils.cast(value, castValue));
+                    System.out.println("TSY NULLLL" + value + " ITOO" + obj.getClass());
+                    if(field.getType().getSimpleName().equalsIgnoreCase("FileUpload") == true){
+                        System.out.println("THERE IS A FILE TO UPLOAD");
+                        try {
+                            System.out.println("THERE IS A FILE TO UPLOAD TAFIDITRAAAAAAAAAAAA");
+                            Part filePart=request.getPart(value);
+                            FileUpload upload=new FileUpload();
+                            upload.setFileName(filePart.getSubmittedFileName()); 
+                            InputStream inputStream = filePart.getInputStream();
+                            upload.setData(inputStream.readAllBytes());
+                            System.out.println(upload.getData());
+                            Class<?> clazz = obj.getClass();
+                            // Retrieve the PathUploadClass annotation from the class
+                            PathUpload annotation = clazz.getAnnotation(PathUpload.class);
+                            if (annotation != null) {
+                                String filePath = annotation.filePath();
+                                Utils.uploadFile(upload, filePath, value, request);
+                            }else{
+                                System.out.println("Aucune annotation donnée à PathUpload");
+                            }
+                        } catch (Exception e) {
+                            throw new Exception("Verifier si vous avez bien télécharger quelque chose");
+                        }
+                    }else{
+                        System.out.println("THIS IS NOT A FILE TO UPLOAD" + value);
+                        String valeur = request.getParameter(field.getName());
+                        Class castValue = (Class<?>) field.getType();
+                        field.set(obj, Utils.cast(valeur, castValue));
+                    }
+                }
             }
         }
     }
+
+public static boolean multiPartFormDataContentType(HttpServletRequest request){
+    String contentType = request.getContentType();
+    if(contentType != null && contentType.startsWith("multipart/form-data")){
+        return true;
+    }
+    return false;
+}
 
     public String[] avoirLaListeArguments(Method methodCalled) {
         String[] thoseAre = null;
@@ -110,7 +150,6 @@ public class FrontServlet extends HttpServlet {
             String clef = entry.getKey();
             String method = entry.getValue().getMethod();
             if (path[1].compareToIgnoreCase(clef) == 0) {
-                System.out.println(entry.getValue() + " - " + entry.getValue().getMethod());
                 return entry.getValue();
             }
         }
@@ -128,10 +167,9 @@ public class FrontServlet extends HttpServlet {
             Class typeArguments = parameters[i].getType();
             // Avadika string le valeur an le paramètre tany am le méthode
             String value = request.getParameter(listeArguments[i]);
-            System.out.println(parameters[i].getName() + " parameters[i].getName()");
+            System.out.println(typeArguments + " parameters[i].getClass().getSimpleName()parameters[i].getClass().getSimpleName()");
             // Avadika ho le type originaleny amzay le izy aveo
             argumentsDeMethode[i] = Utils.cast(value, typeArguments);
-            System.out.println(argumentsDeMethode[i] + " argumentsDeMethode[i]");
         }
         return argumentsDeMethode;
     }

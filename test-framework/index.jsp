@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
     <title>Document</title>
 </head>
+
 <body>
-    <a href="huhu">Where am i directed?</a>
+    <a href="huhu.gg" class="btn btn-primary">Where am i directed?</a>
     <br>
-    <form action="haha" method="post">
-        <input type="submit" value="Where am i directed?">
-    </form>
     <br>
-    <form action="hihi" method="get">
-        <input type="submit" value="Where am i directed?">
-    </form>
-    <br>
-    <a href="get-emp">Liste des employes</a>
-    <br>
-    <a href="emp-jsp">ADD-EMP</a>
-    <br>
-    <a href="dept-jsp">ADD-DEPT </a>
-    <br>
-    <a href="add-dept?nomDeDepartement=huhu&nombreEmploye=12">ADD-EMP by link</a>
+    <div class="col-md-6 bg-dark-subtle p-5 mb-5">
+        USAGE EMPLOYE ET DEPARTEMENT
+    </div>
+    <p>
+        <a href="get-emp.gg" class="btn btn-primary">Liste des employes</a>
+    </p>
+    <p>
+        <a href="emp-jsp.gg" class="btn btn-primary">ADD-EMP</a>
+    </p>
+    <p>
+        <a href="dept-jsp.gg" class="btn btn-primary">ADD-DEPT </a>
+    </p>
+    <p>
+        <a href="add-dept.gg?nomDeDepartement=Ressources humaines&nombreEmploye=12" class="btn btn-primary">ADD-EMP by
+            link</a>
+    </p>
 </body>
+
 </html>
