@@ -14,6 +14,7 @@
     <form action="hihi" method="get">
         <input type="submit" value="Where am i directed?">
     </form>
-    <a href="emp-methode">emp-methode</a>
+    <a href="emp-jsp">emp-jsp</a>
+    <a href="dept-jsp">dept-jsp</a>
 </body>
 </html>

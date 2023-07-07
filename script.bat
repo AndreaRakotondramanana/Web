@@ -1,22 +1,14 @@
 cd framework/src
-javac -d . *.java 
+javac -parameters -d . *.java
 jar -cvf ../../etu1831.jar etu1831
 copy ../../etu1831.jar ../../test-framework/WEB-INF/lib/
 
-REM Chemin du fichier etu1831.jar
-set "cheminJar=D:/Sprint/WebDynamique/Sprint4/etu1831.jar"
-
-REM Verifier si la variable d'environnement CLASSPATH est deja definie
-if not defined CLASSPATH (
-  REM Si elle n'est pas definie, definir la variable CLASSPATH avec le chemin du fichier jar
-  set "CLASSPATH=%cheminJar%"
-) else (
-  REM Si elle est deja definie, ajouter le chemin du fichier jar à la variable CLASSPATH
-  set "CLASSPATH=%CLASSPATH%;%cheminJar%"
-)
+set CLASSPATH=.;D:/Sprint/WebDynamique/Sprint5-2/framework/etu1831.jar
 
 cd ../../test-framework/WEB-INF/classes
-javac -d . *.java 
+javac -parameters -d . *.java
 cd ../../
 jar -cvf ../test-framework.war .
+
+cd ../
 pause

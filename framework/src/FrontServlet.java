@@ -2,9 +2,12 @@ package etu1831.framework.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+
 import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import javax.swing.text.Utilities;
+import javax.servlet.annotation.WebServlet;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import etu1831.framework.Mapping;
+import etu1831.framework.ModelView;
 import etu1831.framework.Url;
 import etu1831.framework.Utils;
 
@@ -24,13 +28,19 @@ public class FrontServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            //entrySet -> ampiasaina ao am boucle angalana an le clef sy valeur     
             out.println("You are being redirected to FRONTSERVLET");
-            for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
+            ModelView modelView = (ModelView)Utils.modelDeRedirection(request, mappingUrls);
+            out.println(modelView.getVueRedirection() + " modelView.getVueRedirection()");
+            RequestDispatcher dispat = request.getRequestDispatcher(modelView.getVueRedirection());
+            dispat.forward(request, response);
+            /* for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
                 String clef = entry.getKey();// clef
                 Mapping map = entry.getValue(); // valeur
                 out.println("L' annotation: " + clef + " de valeur " + map.getClassName() + " de fonction appelée "
                         + map.getMethod());
-            }
+            } */
+        //mappingUrls.entrySet();    
         } catch (Exception e) {
             out.println(e.getMessage() + "\n");
             e.printStackTrace();
