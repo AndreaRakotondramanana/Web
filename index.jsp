@@ -7,6 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="huhu">Where i am directed?</a>
+    <a href="huhu">Where am i directed?</a>
+    <form action="haha" method="post">
+        <input type="submit" value="Where am i directed?">
+    </form>
+    <form action="hihi" method="get">
+        <input type="submit" value="Where am i directed?">
+    </form>
 </body>
 </html>
